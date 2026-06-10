@@ -1,0 +1,25 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+df=pd.read_csv('/content/data/car data.csv')
+print(df.head())
+df=pd.get_dummies(df,drop_first=True)
+x=df.drop('Selling_Price', axis=1)
+y=df['Selling_Price']
+x_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+model=LinearRegression()
+model.fit(x_train,y_train)
+y_pred=model.predict(X_test)
+print("R2 score:", r2_score(y_test,y_pred))
+
+output :
+  Car_Name  Year  Selling_Price  ...  Selling_type  Transmission Owner
+0     ritz  2014           3.35  ...        Dealer        Manual     0
+1      sx4  2013           4.75  ...        Dealer        Manual     0
+2     ciaz  2017           7.25  ...        Dealer        Manual     0
+3  wagon r  2011           2.85  ...        Dealer        Manual     0
+4    swift  2014           4.60  ...        Dealer        Manual     0
+
+[5 rows x 9 columns]
+R2 score: 0.5997023481243802
